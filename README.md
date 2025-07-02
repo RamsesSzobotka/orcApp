@@ -43,12 +43,13 @@ Este proyecto es una aplicación móvil desarrollada en **Java nativo con Androi
 
 ## 📱 Pantallas Esperadas
 
-| Pantalla | Descripción |
-|----------|-------------|
-| 🏠 **Pantalla principal** | Vista previa de la cámara + botón de escanear texto |
-| ✅ **Resultado OCR** | Muestra el texto detectado + opciones para guardar |
-| 📜 **Historial** | Lista de textos escaneados con fecha y hora |
-| 🔎 **Aplicar filtros** | Botón para seleccionar tipo de filtro y ver resultados |
+| Pantalla                 | Descripción                                            |
+|--------------------------|--------------------------------------------------------|
+| 🏠 **Pantalla principal** | Vista previa de la cámara + botón de escanear texto    |
+| ✅ **Resultado OCR**      | Muestra el texto detectado + opciones para guardar     |
+| 📜 **Historial**         | Lista de textos escaneados con fecha y hora            |
+| 👤**pantalla de login**  | Login para ver registro de escaneos por usuarios       |
+| 🔎 **Aplicar filtros**   | Botón para seleccionar tipo de filtro y ver resultados |
 
 ---
 
@@ -73,39 +74,59 @@ xml:
 Y dentro del <application>: android:requestLegacyExternalStorage="true"
 
 ## 🗃️ Base de datos local (SQLite)
-Debe incluir:
+🔐 Inicio de sesión de usuarios
+Para permitir que cada usuario visualice únicamente su propio historial de escaneos, el proyecto debe incorporar una tabla de usuarios y relacionarla con los registros escaneados.
 
-Una clase DBHelper.java que maneje la conexión y operaciones con SQLite.
+📋 Tabla: usuarios
 
-Tabla: historial
+CREATE TABLE usuarios (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+nombre_usuario TEXT NOT NULL UNIQUE,
+contraseña TEXT NOT NULL
+);
+hashear contraseña obviamente
+
+📋 Tabla: historial
 
 CREATE TABLE historial (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    texto TEXT NOT NULL,
-    fecha TEXT NOT NULL
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+texto TEXT NOT NULL,
+fecha TEXT NOT NULL,
+id_usuario INTEGER NOT NULL,
+FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
-Métodos necesarios:
-  -insertarTexto(String texto, String fecha)
-  
-  -obtenerHistorial()
-  
-  -eliminarHistorial()
+## 📦 Clases necesarias
+Clase	Descripción
+LoginActivity.java	Pantalla de inicio de sesión (usuario y contraseña)
+RegisterActivity.java	Pantalla de registro para nuevos usuarios
+SessionManager.java	Clase utilitaria para mantener el usuario logueado en la app
+DBHelper.java (extendida)	Incluye métodos para manejar login y registros de usuarios
 
-## 🔤 Clase de filtros (FiltroUtils.java para filtrar correos,telefonos o fechas del texto)
-Debe contener métodos estáticos como:
-  public static List<String> extraerCorreos(String texto);
-  public static List<String> extraerTelefonos(String texto);
-  public static List<String> extraerFechas(String texto);
-Utilizando expresiones regulares con Pattern y Matcher.
+## 🔑 Métodos que debe tener la clase DBHelper.java:
 
-## 🧪 Flujo esperado de uso
-1.El usuario abre la app y se muestra la cámara.
+// Registro de nuevo usuario
+public boolean registrarUsuario(String nombreUsuario, String contraseña);
 
-2.Presiona un botón para capturar texto (OCR en tiempo real).
+// Validación de inicio de sesión
+public boolean validarUsuario(String nombreUsuario, String contraseña);
 
-3.Se muestra el texto detectado, con opción para guardar.
+// Obtener ID del usuario por nombre
+public int obtenerIdUsuario(String nombreUsuario);
 
-4.El usuario puede ir a "Historial" para ver lo escaneado.
+// Insertar historial asociado al usuario
+public boolean insertarTexto(String texto, String fecha, int idUsuario);
 
-5.En el historial, puede aplicar filtros para extraer datos útiles.
+// Obtener historial por usuario
+public Cursor obtenerHistorialPorUsuario(int idUsuario);
+
+## Flujo de app
+1. El usuario abre la app y se presenta la pantalla de login.
+
+2. Si es nuevo, puede registrarse con un nombre de usuario y contraseña.
+
+3. Luego de iniciar sesión, se accede a la cámara y OCR.
+
+4. Los textos escaneados se guardan con el id_usuario.
+
+5. El historial muestra solo los escaneos del usuario que inició sesión.
