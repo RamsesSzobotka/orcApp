@@ -1,17 +1,24 @@
 [versions]
 agp = "8.10.1"
+cameraCore = "1.4.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.1"
 material = "1.12.0"
+textRecognition = "16.0.1"
 
 [libraries]
+camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
+camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
+camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
+camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+text-recognition = { module = "com.google.mlkit:text-recognition", version.ref = "textRecognition" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
