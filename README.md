@@ -100,7 +100,6 @@ FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 Clase	Descripción
 LoginActivity.java	Pantalla de inicio de sesión (usuario y contraseña)
 RegisterActivity.java	Pantalla de registro para nuevos usuarios
-SessionManager.java	Clase utilitaria para mantener el usuario logueado en la app
 DBHelper.java (extendida)	Incluye métodos para manejar login y registros de usuarios
 
 ## 🔑 Métodos que debe tener la clase DBHelper.java:
@@ -158,7 +157,7 @@ Responsabilidades:
   
    - List<String> obtenerHistorialPorUsuario(int usuarioId)
 
-## 📜 Integrante 2: Registro + Historial:Crear el layout de regisrar usuario (usando los metodos dados por el encargado de la base de datos+login) y el layout del historial.
+## 📜 Integrante 2: Registro + Historial:Crear el layout de registrar usuario (usando los metodos dados por el encargado de la base de datos+login) y el layout del historial.
 Responsabilidades:
 
 - Crear una clase intermedia o servicio que reciba texto desde la lógica OCR y lo guarde en la base de datos usando métodos del DBHelper.
