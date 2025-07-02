@@ -188,7 +188,7 @@ Responsabilidades:
 
 - No debe encargarse del guardado directo: solo escanea, convierte a texto y delega.
 
-## 🔍 Integrante 4: Filtros y patrones de texto:El encargado de la logica Ocr luego de escanear mantara el texto a FiltrosActivity donde podra aplicar lso filtros y copiar el texto.
+## 🔍 Integrante 4: Filtros y patrones de texto:El encargado de la logica Ocr luego de escanear mantara el texto a Activity donde podra aplicar los filtros y se podra ver una lsita de lo encontrado si presioan fecha pues uan lista de fechas etc..
 Responsabilidades:
 
 - Crear FiltroUtils.java con métodos estáticos que usen expresiones regulares para extraer:
