@@ -72,8 +72,7 @@ xml:
 
 Y dentro del <application>: android:requestLegacyExternalStorage="true"
 
---
-🗃️ Base de datos local (SQLite)
+## 🗃️ Base de datos local (SQLite)
 Debe incluir:
 
 Una clase DBHelper.java que maneje la conexión y operaciones con SQLite.
@@ -93,14 +92,14 @@ Métodos necesarios:
   
   -eliminarHistorial()
 
-🔤 Clase de filtros (FiltroUtils.java para filtrar correos,telefonos o fechas del texto)
+## 🔤 Clase de filtros (FiltroUtils.java para filtrar correos,telefonos o fechas del texto)
 Debe contener métodos estáticos como:
   public static List<String> extraerCorreos(String texto);
   public static List<String> extraerTelefonos(String texto);
   public static List<String> extraerFechas(String texto);
 Utilizando expresiones regulares con Pattern y Matcher.
 
-🧪 Flujo esperado de uso
+## 🧪 Flujo esperado de uso
 1.El usuario abre la app y se muestra la cámara.
 
 2.Presiona un botón para capturar texto (OCR en tiempo real).
