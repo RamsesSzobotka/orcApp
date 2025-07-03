@@ -100,7 +100,6 @@ FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 Clase	Descripción
 LoginActivity.java	Pantalla de inicio de sesión (usuario y contraseña)
 RegisterActivity.java	Pantalla de registro para nuevos usuarios
-SessionManager.java	Clase utilitaria para mantener el usuario logueado en la app
 DBHelper.java (extendida)	Incluye métodos para manejar login y registros de usuarios
 
 ## 🔑 Métodos que debe tener la clase DBHelper.java:
@@ -130,3 +129,88 @@ public Cursor obtenerHistorialPorUsuario(int idUsuario);
 4. Los textos escaneados se guardan con el id_usuario.
 
 5. El historial muestra solo los escaneos del usuario que inició sesión.
+
+
+## 👥 División de tareas entre los 4 integrantes del proyecto OCR
+responsabilidades de cada uno:
+
+## 🧑‍💼 Integrante 1: Login + Base de Datos:Crear el login y base de datos.
+Responsabilidades:
+
+- Crear LoginActivity.java y RegisterActivity.java.
+
+- Diseñar los layouts correspondientes (activity_login.xml, activity_register.xml).
+
+- Desarrollar la clase DBHelper.java que manejará:
+
+  - Registro e inicio de sesión de usuarios.
+  
+  - Inserción y consulta del historial de escaneos.
+
+- Debe proveer al equipo métodos reutilizables como:
+
+   - boolean registrarUsuario(nombre, contraseña)
+  
+   - boolean validarUsuario(nombre, contraseña)
+  
+   - boolean insertarTexto(String texto, String fecha, int usuarioId)
+  
+   - List<String> obtenerHistorialPorUsuario(int usuarioId)
+
+## 📜 Integrante 2: Registro + Historial:Crear el layout de registrar usuario (usando los metodos dados por el encargado de la base de datos+login) y el layout del historial.
+Responsabilidades:
+
+- Crear una clase intermedia o servicio que reciba texto desde la lógica OCR y lo guarde en la base de datos usando métodos del DBHelper.
+
+- Implementar HistorialActivity.java que muestre todos los textos escaneados por el usuario actual.
+
+- Crear el diseño activity_historial.xml y un item_historial.xml para el RecyclerView.
+
+- Debe proveer una función como:
+
+  - guardarTextoEscaneado(String texto)
+
+- El de la lógica OCR solo deberá invocar esta función para guardar.
+
+## 📷 Integrante 3: Lógica de Cámara + OCR (Activity principal):Logica de escanear imagen y trasnformar a texto y layout de la pagina principal.
+Responsabilidades:
+
+- Configurar CameraX para obtener imágenes en tiempo real.
+
+- Integrar ML Kit para realizar OCR sobre cada imagen capturada.
+
+- Crear MainActivity.java y su layout (activity_main.xml) con vista previa de cámara y botón de escanear.
+
+- Mostrar el texto detectado en pantalla y enviarlo al responsable del historial mediante:
+
+  - guardarTextoEscaneado(textoReconocido)
+
+- No debe encargarse del guardado directo: solo escanea, convierte a texto y delega.
+
+## 🔍 Integrante 4: Filtros y patrones de texto:El encargado de la logica Ocr luego de escanear mantara el texto a Activity donde podra aplicar los filtros y se podra ver una lsita de lo encontrado si presioan fecha pues uan lista de fechas etc..
+Responsabilidades:
+
+- Crear FiltroUtils.java con métodos estáticos que usen expresiones regulares para extraer:
+
+  - Correos electrónicos
+  
+  - Números telefónicos
+  
+  - Fechas
+  
+  - Cédulas panameñas
+
+- Implementar FiltrosActivity.java que permita al usuario seleccionar qué tipo de patrón quiere aplicar al texto ya escaneado.
+
+- Crear el diseño activity_filtros.xml y vista de resultados.
+
+- Métodos esperados en FiltroUtils:
+
+  - List<String> extraerCorreos(String texto)
+  
+  - List<String> extraerFechas(String texto)
+  
+  - List<String> extraerTelefonos(String texto)
+  
+  - List<String> extraerCedulas(String texto)
+
