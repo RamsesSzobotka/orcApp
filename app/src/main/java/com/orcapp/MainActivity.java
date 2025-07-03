@@ -1,24 +1,32 @@
 package com.orcapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.orcapp.R;
+import com.orcapp.db.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SessionManager sessionManager;
+    private TextView tvWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        sessionManager = new SessionManager(this);
+        tvWelcome = findViewById(R.id.tvWelcome);
+
+        // Mostrar mensaje de bienvenida con el nombre de usuario si está disponible
+        String username = sessionManager.obtenerNombreUsuario();
+        if (username != null && !username.isEmpty()) {
+            tvWelcome.setText("Bienvenido, " + username);
+        } else {
+            tvWelcome.setText("Bienvenido");
+        }
     }
 }
