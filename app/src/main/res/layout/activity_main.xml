@@ -14,6 +14,15 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Bienvenido"/>
+        android:text="Bienvenido"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar sesión"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

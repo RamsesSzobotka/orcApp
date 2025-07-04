@@ -30,41 +30,33 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inicializar vistas
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Inicializar DB y Session
         dbHelper = new DBHelper(this);
         sessionManager = new SessionManager(this);
 
-        // Verificar sesión activa
         if (sessionManager.haySesionActiva()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
 
-        // Listeners
         btnLogin.setOnClickListener(v -> loginUser());
-        tvRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        tvRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
     }
 
     private void loginUser() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validar campos
         String error = ValidationUtils.validarLogin(username, password);
         if (error != null) {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Verificar credenciales
         if (dbHelper.validarUsuario(username, password)) {
             int userId = dbHelper.obtenerIdUsuario(username);
             sessionManager.guardarSesion(userId, username);

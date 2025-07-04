@@ -7,33 +7,4 @@
     <string name="login_button">Iniciar Sesión</string>
     <string name="register_prompt">¿No tienes cuenta? Regístrate</string>
 
-    <string name="app_logo">Logo de la aplicación</string>
-
-    <!-- Login Activity -->
-
-    <string name="no_account_text">¿No tienes cuenta?</string>
-    <string name="register_link">Regístrate</string>
-    <string name="forgot_password_link">¿Olvidaste tu contraseña?</string>
-
-    <!-- Register Activity -->
-    <string name="register_title">Crear Cuenta</string>
-    <string name="register_subtitle">Únete a nuestra comunidad</string>
-    <string name="confirm_password_hint">Confirmar contraseña</string>
-    <string name="register_button">Registrarse</string>
-    <string name="already_have_account_text">¿Ya tienes cuenta?</string>
-    <string name="login_link">Inicia sesión</string>
-    <string name="username_helper_text">3-20 caracteres, solo letras, números y guión bajo</string>
-    <string name="password_helper_text">Mínimo 6 caracteres, debe contener letras y números</string>
-
-    <!-- MainActivity -->
-    <string name="main_title">OCR App</string>
-    <string name="logout_menu">Cerrar sesión</string>
-    <string name="profile_menu">Perfil</string>
-    <string name="history_menu">Historial</string>
-
-    <!-- Mensajes comunes -->
-    <string name="loading">Cargando...</string>
-    <string name="error_generic">Ha ocurrido un error</string>
-    <string name="success_generic">Operación exitosa</string>
-
 </resources>
