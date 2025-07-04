@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">orcApp</string>
+    <string name="app_name">OCR App</string>
+    <string name="login_title">Inicio de Sesión</string>
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="register_prompt">¿No tienes cuenta? Regístrate</string>
+
 </resources>
