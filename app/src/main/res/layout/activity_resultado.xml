@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Texto detectado"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Contenedor scroll para texto detectado -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F5F5F5"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/txtTextoDetectado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Texto detectado aparecerá aquí"
+            android:textSize="16sp"
+            android:textColor="#000000" />
+    </ScrollView>
+
+    <!-- Botón copiar -->
+    <Button
+        android:id="@+id/btnCopiar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📋 Copiar al portapapeles"
+        android:layout_marginTop="12dp" />
+
+    <!-- Botón guardar -->
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💾 Guardar en historial"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botón filtrar -->
+    <Button
+        android:id="@+id/btnFiltrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔍 Aplicar filtros"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
