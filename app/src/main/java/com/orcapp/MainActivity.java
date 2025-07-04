@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         tvWelcome = findViewById(R.id.tvWelcome);
         btnLogout = findViewById(R.id.btnLogout);
 
+        //agregue esto para una prueba rapida
         // Mostrar mensaje de bienvenida
         String username = sessionManager.obtenerNombreUsuario();
         if (username != null && !username.isEmpty()) {
