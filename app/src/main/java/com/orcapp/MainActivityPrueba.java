@@ -8,11 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.orcapp.R;
 import com.orcapp.db.SessionManager;
 import com.orcapp.login.LoginActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityPrueba extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private TextView tvWelcome;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sessionManager.cerrarSesion();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivityPrueba.this, LoginActivity.class));
                 finish();
             }
         });
