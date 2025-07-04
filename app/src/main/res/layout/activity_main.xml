@@ -4,38 +4,33 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?android:colorBackground"
     tools:context=".MainActivity">
 
     <!-- Vista previa de la cámara -->
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/botonera"
-        android:layout_marginBottom="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_above="@id/botonera"
         android:background="#000000"
         android:contentDescription="Vista previa de la cámara" />
 
-    <!-- Contenedor con botones en filas -->
+    <!-- Botonera inferior -->
     <LinearLayout
         android:id="@+id/botonera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:background="?android:colorBackground">
 
         <!-- Fila 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
             android:layout_marginBottom="8dp">
 
             <Button
@@ -45,8 +40,8 @@
                 android:layout_weight="1"
                 android:text="📷 Escanear"
                 android:textSize="16sp"
-                android:backgroundTint="#6200EE"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="?android:colorAccent"
+                android:textColor="?android:textColorPrimaryInverse"
                 android:layout_marginEnd="4dp" />
 
             <Button
@@ -56,8 +51,8 @@
                 android:layout_weight="1"
                 android:text="🖼️ Imagen"
                 android:textSize="16sp"
-                android:backgroundTint="#03DAC5"
-                android:textColor="#000000"
+                android:backgroundTint="?android:colorAccent"
+                android:textColor="?android:textColorPrimary"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
 
@@ -65,8 +60,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnHistorial"
@@ -75,8 +69,8 @@
                 android:layout_weight="1"
                 android:text="📜 Historial"
                 android:textSize="16sp"
-                android:backgroundTint="#018786"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="?android:colorActivatedHighlight"
+                android:textColor="?android:textColorPrimary"
                 android:layout_marginEnd="4dp" />
 
             <Button
@@ -86,10 +80,9 @@
                 android:layout_weight="1"
                 android:text="🔒 Cerrar"
                 android:textSize="16sp"
-                android:backgroundTint="#B00020"
+                android:backgroundTint="@android:color/holo_red_dark"
                 android:textColor="#FFFFFF"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>
