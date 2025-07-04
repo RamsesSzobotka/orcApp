@@ -25,6 +25,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.orcapp.db.SessionManager;
+import com.orcapp.login.LoginActivity;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -65,13 +67,15 @@ public class MainActivity extends AppCompatActivity {
         btnHistorial.setOnClickListener(v -> {
             startActivity(new Intent(this, HistorialActivity.class));
         });
-
+        */
         btnCerrarSesion.setOnClickListener(v -> {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.cerrarSesion();
             startActivity(intent);
             Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
-        });*/
+        });
     }
 
     // Permisos necesarios
