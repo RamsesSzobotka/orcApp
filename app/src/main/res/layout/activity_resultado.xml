@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="?android:colorBackground">
 
     <!-- Título -->
     <TextView
@@ -14,7 +14,7 @@
         android:text="Texto detectado"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#333333"
+        android:textColor="?android:textColorPrimary"
         android:gravity="center"
         android:layout_marginBottom="8dp" />
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F5F5F5"
+        android:background="?android:colorBackgroundFloating"
         android:padding="12dp">
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Texto detectado aparecerá aquí"
             android:textSize="16sp"
-            android:textColor="#000000" />
+            android:textColor="?android:textColorPrimary" />
     </ScrollView>
 
     <!-- Botón copiar -->
@@ -41,7 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="📋 Copiar al portapapeles"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:backgroundTint="?android:colorAccent" />
 
     <!-- Botón guardar -->
     <Button
@@ -49,7 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="💾 Guardar en historial"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:backgroundTint="?android:colorAccent" />
 
     <!-- Botón filtrar -->
     <Button
@@ -57,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="🔍 Aplicar filtros"
-        android:layout_marginTop="8dp" />
-
+        android:layout_marginTop="8dp"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:backgroundTint="?android:colorAccent" />
 </LinearLayout>

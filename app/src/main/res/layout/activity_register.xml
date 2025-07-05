@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="?android:colorBackground">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,6 +13,7 @@
         android:text="Registro"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"
         android:layout_marginBottom="24dp"/>
 
     <EditText
@@ -19,7 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombre de usuario"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textColor="?android:textColorPrimary"
+        android:backgroundTint="?android:colorControlActivated" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -27,6 +31,8 @@
         android:layout_height="wrap_content"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        android:textColor="?android:textColorPrimary"
+        android:backgroundTint="?android:colorControlActivated"
         android:layout_marginTop="8dp"/>
 
     <EditText
@@ -35,6 +41,8 @@
         android:layout_height="wrap_content"
         android:hint="Confirmar contraseña"
         android:inputType="textPassword"
+        android:textColor="?android:textColorPrimary"
+        android:backgroundTint="?android:colorControlActivated"
         android:layout_marginTop="8dp"/>
 
     <Button
@@ -42,7 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Registrarse"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:backgroundTint="?android:colorAccent" />
 
     <TextView
         android:id="@+id/tvLogin"
@@ -50,5 +60,5 @@
         android:layout_height="wrap_content"
         android:text="¿Ya tienes cuenta? Inicia sesión"
         android:layout_marginTop="16dp"
-        android:textColor="?android:attr/textColorLink"/>
+        android:textColor="?android:textColorLink"/>
 </LinearLayout>
