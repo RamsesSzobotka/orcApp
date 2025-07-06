@@ -32,12 +32,11 @@ public class ResultadoActivity extends AppCompatActivity {
         setTexto();
         btnCopiar.setOnClickListener(v -> copiarAlPortapapeles());
         //btnGuardar.setOnClickListener(v -> guardarTexto());
-        /*
         btnFiltrar.setOnClickListener(v -> {
             Intent intent = new Intent(ResultadoActivity.this, FiltrosActivity.class);
             intent.putExtra("textoParaFiltrar", textoRecibido);
             startActivity(intent);
-        });*/
+        });
     }
     private void setControls() {
         txtTextoDetectado = findViewById(R.id.txtTextoDetectado);

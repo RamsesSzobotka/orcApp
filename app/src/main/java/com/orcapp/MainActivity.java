@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
@@ -20,12 +21,10 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.camera.core.Preview;
 
-
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
-import com.orcapp.db.SessionManager;
 import com.orcapp.login.LoginActivity;
 
 import java.io.IOException;
@@ -34,10 +33,12 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    PreviewView previewView;
-    Button btnEscanear, btnSeleccionarImagen, btnHistorial, btnCerrarSesion;
-    ExecutorService cameraExecutor;
-    boolean escaneando = false;
+    private PreviewView previewView;
+    private ImageButton btnEscanear, btnSeleccionarImagen, btnFlash;
+    private ExecutorService cameraExecutor;
+    private boolean escaneando = false;
+    private Camera camera;
+    private boolean flashEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,33 +50,35 @@ public class MainActivity extends AppCompatActivity {
         requestPermissions();
     }
 
-    // Inicializar vistas
+    // Inicializar controles
     private void setControls() {
         previewView = findViewById(R.id.previewView);
         btnEscanear = findViewById(R.id.btnEscanear);
         btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
-        btnHistorial = findViewById(R.id.btnHistorial);
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnFlash = findViewById(R.id.btnFlash);
         cameraExecutor = Executors.newSingleThreadExecutor();
     }
 
     // Eventos de los botones
     public void setEvents() {
         btnEscanear.setOnClickListener(v -> scanTextLive());
+
         btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
-        /*
-        btnHistorial.setOnClickListener(v -> {
-            startActivity(new Intent(this, HistorialActivity.class));
+
+        btnFlash.setOnClickListener(v -> {
+            if (camera != null) {
+                flashEnabled = !flashEnabled;
+                camera.getCameraControl().enableTorch(flashEnabled);
+
+                // Alternar icono de encendido y apagado
+                if (flashEnabled) {
+                    btnFlash.setImageResource(R.drawable.ic_flash_on);
+                } else {
+                    btnFlash.setImageResource(R.drawable.ic_flash_off);
+                }
+            }
         });
-        */
-        btnCerrarSesion.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            SessionManager sessionManager = new SessionManager(this);
-            sessionManager.cerrarSesion();
-            startActivity(intent);
-            Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
-        });
+
     }
 
     // Permisos necesarios
@@ -111,14 +114,13 @@ public class MainActivity extends AppCompatActivity {
                 analysis.setAnalyzer(cameraExecutor, this::analyzeImage);
 
                 cameraProvider.unbindAll();
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, analysis);
+                camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, analysis);
 
             } catch (Exception e) {
                 Log.e("CameraX", "Error al iniciar cámara", e);
             }
         }, ContextCompat.getMainExecutor(this));
     }
-
 
     // Análisis desde la cámara (solo si escaneando = true)
     public void analyzeImage(@NonNull ImageProxy imageProxy) {
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(result -> {
                     String texto = result.getText();
                     imageProxy.close();
-                    escaneando = false; // detener escaneo tras primer intento
+                    escaneando = false;
 
                     if (!texto.isEmpty()) {
                         abrirResultado(texto);
@@ -171,11 +173,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-    // Abrir galería
+    // Abrir archivos para buscar imagen
     public void seleccionarImagen() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        galeriaLauncher.launch(intent);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        galeriaLauncher.launch(Intent.createChooser(intent, "Selecciona una imagen"));
     }
 
     // OCR desde imagen de galería
@@ -203,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Liberar recursos
     @Override
     protected void onDestroy() {
         super.onDestroy();

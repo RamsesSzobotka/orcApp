@@ -72,5 +72,4 @@
         android:divider="?android:attr/listDivider"
         android:dividerHeight="1dp"
         android:visibility="invisible" />
-
 </LinearLayout>
