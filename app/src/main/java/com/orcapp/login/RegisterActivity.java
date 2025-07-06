@@ -15,12 +15,12 @@ import com.orcapp.utils.ValidationUtils;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // Componentes de la interfaz
+    //Componentes de la interfaz
     private EditText etUsername, etPassword, etConfirmPassword;
     private Button btnRegister;
     private TextView tvLogin;
 
-    // Helper para operaciones con la base de datos
+    //Helper para operaciones con la base de datos
     private DBHelper dbHelper;
 
     @Override
@@ -28,44 +28,47 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Inicialización de vistas
+        setControls();
+        initObjects();
+        setListeners();
+    }
+
+    //Vincula las vistas del layout con variables
+    private void setControls() {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
         tvLogin = findViewById(R.id.tvLogin);
-
-        // Inicialización del helper de base de datos
-        dbHelper = new DBHelper(this);
-
-        // Listeners para los botones
-        btnRegister.setOnClickListener(v -> registerUser()); // Registro al hacer click
-        tvLogin.setOnClickListener(v -> finish()); // Cierra esta actividad y vuelve al login
     }
 
-    /**
-     * Maneja el proceso de registro de usuario
-     * 1. Valida los campos de entrada
-     * 2. Intenta registrar en la base de datos
-     * 3. Muestra feedback al usuario
-     */
+    //Inicializa los objetos necesarios
+    private void initObjects() {
+        dbHelper = new DBHelper(this);
+    }
+
+    //Define los eventos para los botones
+    private void setListeners() {
+        btnRegister.setOnClickListener(v -> registerUser());
+        tvLogin.setOnClickListener(v -> finish());
+    }
+
+    //Maneja el proceso de registro de usuario
     private void registerUser() {
-        // Obtiene y limpia los textos ingresados
+
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-        // Validación de campos usando ValidationUtils
         String error = ValidationUtils.validarRegistro(username, password, confirmPassword);
         if (error != null) {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-            return; // Detiene el registro si hay errores
+            return;
         }
 
-        // Intento de registro en la base de datos
         if (dbHelper.registrarUsuario(username, password)) {
             Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-            finish(); // Vuelve a LoginActivity después de registrar
+            finish();
         } else {
             Toast.makeText(this, "Error al registrar", Toast.LENGTH_SHORT).show();
         }

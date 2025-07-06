@@ -3,63 +3,48 @@ package com.orcapp.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/*
- Maneja la sesión del usuario utilizando SharedPreferences
- Permite guardar, recuperar y eliminar información de la sesión actual
- */
+// Clase que maneja la sesión del usuario utilizando SharedPreferences
 public class SessionManager {
-    //Nombres de las preferencias y claves para almacenamiento
+
+    // Nombres de las claves para el almacenamiento en SharedPreferences
     private static final String PREF_NAME = "SesionPrefs";
     private static final String KEY_ID_USUARIO = "idUsuario";
     private static final String KEY_NOMBRE_USUARIO = "nombreUsuario";
 
-    //Objetos para manejar las preferencias compartidas
+    // Objetos para acceder y modificar las preferencias
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-
-    //Constructor que inicializa las preferencias compartidas
-
+    // Inicializa SharedPreferences para manejar la sesión
     public SessionManager(Context context) {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
-
-     //Guarda los datos de la sesión del usuario
+    // Guarda el ID y nombre del usuario en la sesión
     public void guardarSesion(int idUsuario, String nombreUsuario) {
         editor.putInt(KEY_ID_USUARIO, idUsuario);
         editor.putString(KEY_NOMBRE_USUARIO, nombreUsuario);
-        editor.apply(); // Guarda los cambios de forma asíncrona
+        editor.apply();
     }
 
-    /*
-     Verifica si existe una sesión activa
-     retorna true si hay un usuario logueado, false en caso contrario
-     */
+    // Verifica si hay una sesión activa
     public boolean haySesionActiva() {
         return prefs.contains(KEY_ID_USUARIO);
     }
 
-    /*
-     Obtiene el ID del usuario actualmente logueado
-     retorna ID del usuario o -1 si no hay sesión activa
-     */
+    // Devuelve el ID del usuario en sesión o -1 si no hay
     public int obtenerIdUsuario() {
         return prefs.getInt(KEY_ID_USUARIO, -1);
     }
 
-
-     //Cierra la sesión actual eliminando todos los datos almacenados
+    // Elimina todos los datos de sesión (cierre de sesión)
     public void cerrarSesion() {
-        editor.clear();  // Elimina todos los valores
-        editor.apply();  // Aplica los cambios
+        editor.clear();
+        editor.apply();
     }
 
-    /*
-     Obtiene el nombre de usuario de la sesión actual
-     retorna Nombre del usuario o null si no hay sesión activa
-     */
+    // Devuelve el nombre del usuario en sesión o null si no hay
     public String obtenerNombreUsuario() {
         return prefs.getString(KEY_NOMBRE_USUARIO, null);
     }
