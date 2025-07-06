@@ -24,7 +24,7 @@ public class FiltrosActivity extends AppCompatActivity {
 
     //variables a utilizar
     private Spinner spnFiltros;
-    private Button btnAplicarFiltro,btnVerOriginal;
+    private Button btnAplicarFiltro, btnVerOriginal;
     private ListView lvResultados;
     private String textoOg;
 
@@ -36,9 +36,10 @@ public class FiltrosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filtros);
 
         inicializarControles();
+        verTextoOG(btnVerOriginal);
     }
 
-    private void inicializarControles(){
+    private void inicializarControles() {
         spnFiltros = findViewById(R.id.spnFiltros);
         btnAplicarFiltro = findViewById(R.id.btnAplicarFiltro);
         btnVerOriginal = findViewById(R.id.btnVerOriginal);
@@ -66,25 +67,25 @@ public class FiltrosActivity extends AppCompatActivity {
     }
 
 
-    public void AplicarFiltro(View view){
+    public void AplicarFiltro(View view) {
         //mensajillo para el usuario
         Toast.makeText(this, "Identificando patrones", Toast.LENGTH_SHORT).show();
 
         String filtroSeleccionado = spnFiltros.getSelectedItem().toString();
         List<String> resultados = null;
 
-        switch (filtroSeleccionado){
+        switch (filtroSeleccionado) {
             case "Correos electrónicos":
-                resultados= FiltroUtils.extraerCorreos(textoOg);
+                resultados = FiltroUtils.extraerCorreos(textoOg);
                 break;
             case "Fechas":
-                resultados= FiltroUtils.extraerFechas(textoOg);
+                resultados = FiltroUtils.extraerFechas(textoOg);
                 break;
             case "Números telefónicos":
-                resultados= FiltroUtils.extraerTelefonos(textoOg);
+                resultados = FiltroUtils.extraerTelefonos(textoOg);
                 break;
             case "Cédulas panameñas":
-                resultados= FiltroUtils.extraerCedulas(textoOg);
+                resultados = FiltroUtils.extraerCedulas(textoOg);
                 break;
         }
 
@@ -106,6 +107,7 @@ public class FiltrosActivity extends AppCompatActivity {
         }
 
     }
+
     public void verTextoOG(View view) {
         SharedPreferences prefs = getSharedPreferences("orcPrefs", MODE_PRIVATE);
         String textoOriginal = prefs.getString("textoOriginal", "No hay texto disponible");
@@ -120,5 +122,4 @@ public class FiltrosActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Mostrando texto original", Toast.LENGTH_SHORT).show();
     }
-
 }
