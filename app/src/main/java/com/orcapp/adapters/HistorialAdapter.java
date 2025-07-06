@@ -13,6 +13,12 @@ import java.util.List;
 
 public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.ViewHolder> {
     private List<TextoEscaneado> lista;
+    private View.OnClickListener onItemClickListener;
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView texto, fecha;
@@ -31,8 +37,14 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
     @Override
     public HistorialAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_template, parent, false);
+
+        if (onItemClickListener != null) {
+            v.setOnClickListener(onItemClickListener);
+        }
+
         return new ViewHolder(v);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {

@@ -45,8 +45,21 @@ public class HistorialActivity extends AppCompatActivity {
     public void cargarHistorial() {
         listaHistorial = cargarHistorialDesdeBD();
         adapter = new HistorialAdapter(listaHistorial);
+
+        adapter.setOnItemClickListener(v -> {
+            int position = recyclerView.getChildAdapterPosition(v);
+            if (position != RecyclerView.NO_POSITION) {
+                TextoEscaneado item = listaHistorial.get(position);
+
+                Intent intent = new Intent(HistorialActivity.this, FiltrosActivity.class);
+                intent.putExtra("textoParaFiltrar", item.getTexto());
+                startActivity(intent);
+            }
+        });
+
         recyclerView.setAdapter(adapter);
     }
+
 
     public void volverEvent(){
         btnVolver.setOnClickListener(v ->
