@@ -7,7 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
+import com.orcapp.db.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -19,9 +20,9 @@ public class ResultadoActivity extends AppCompatActivity {
 
     TextView txtTextoDetectado;
     Button btnGuardar, btnFiltrar,btnCopiar;
-    ;
+
     String textoRecibido;
-    int usuarioId = 1; // Reemplaza con el ID real del usuario logueado
+    int usuarioId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class ResultadoActivity extends AppCompatActivity {
         setControls();
         setTexto();
         btnCopiar.setOnClickListener(v -> copiarAlPortapapeles());
-        //btnGuardar.setOnClickListener(v -> guardarTexto());
+        btnGuardar.setOnClickListener(v -> guardarTexto());
         btnFiltrar.setOnClickListener(v -> {
             Intent intent = new Intent(ResultadoActivity.this, FiltrosActivity.class);
             intent.putExtra("textoParaFiltrar", textoRecibido);
@@ -64,18 +65,20 @@ public class ResultadoActivity extends AppCompatActivity {
         Toast.makeText(this, "Texto copiado al portapapeles", Toast.LENGTH_SHORT).show();
     }
 
-    /*
+
     private void guardarTexto() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        DBHelper db = new DBHelper(this);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        DBHelper dbHelper = new DBHelper(this);
+        SessionManager smHelper = new SessionManager(this);
+        usuarioId = smHelper.obtenerIdUsuario();
         String fecha = sdf.format(new Date());
 
-        boolean guardado = db.insertarTexto(textoRecibido, fecha, usuarioId);
+        boolean guardado = dbHelper.insertarTexto(textoRecibido, fecha, usuarioId);
 
         if (guardado) {
             Toast.makeText(this, "Texto guardado en historial", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Error al guardar texto", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 }

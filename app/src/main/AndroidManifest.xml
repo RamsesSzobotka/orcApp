@@ -23,9 +23,11 @@
         android:theme="@style/Theme.OrcApp"
         tools:targetApi="31">
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".HistorialActivity"
             android:exported="false" />
-        <!-- Main activity de login -->
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" /> <!-- Main activity de login -->
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">

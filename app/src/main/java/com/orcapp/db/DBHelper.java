@@ -6,8 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.orcapp.models.TextoEscaneado;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     // Configuración básica de la base de datos
@@ -130,14 +134,27 @@ public class DBHelper extends SQLiteOpenHelper {
      Obtiene el historial de textos de un usuario
      retorna Cursor con los resultados ordenados por fecha descendente
      */
-    public Cursor obtenerHistorialPorUsuario(int idUsuario) {
+    public List<TextoEscaneado> obtenerHistorialPorUsuario(int idUsuario) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_HISTORIAL,
+        List<TextoEscaneado> lista = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_HISTORIAL,
                 null,
                 COLUMN_ID_USUARIO + " = ?",
                 new String[]{String.valueOf(idUsuario)},
                 null, null,
                 COLUMN_FECHA + " DESC");
+        int indexTexto = cursor.getColumnIndexOrThrow("texto");
+        int indexFecha = cursor.getColumnIndexOrThrow("fecha");
+        if (cursor.moveToFirst()){
+        if (indexTexto != -1 && indexFecha != -1) {
+            do {
+                String texto = cursor.getString(indexTexto);
+                String fecha = cursor.getString(indexFecha);
+                lista.add(new TextoEscaneado(texto, fecha));
+            } while (cursor.moveToNext());
+
+        }}return lista;
     }
 
     /*
