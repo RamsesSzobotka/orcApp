@@ -69,7 +69,7 @@ public class FiltrosActivity extends AppCompatActivity {
 
     public void AplicarFiltro(View view) {
         //mensajillo para el usuario
-        Toast.makeText(this, "Identificando patrones", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Identificando patrones....", Toast.LENGTH_SHORT).show();
 
         String filtroSeleccionado = spnFiltros.getSelectedItem().toString();
         List<String> resultados = null;

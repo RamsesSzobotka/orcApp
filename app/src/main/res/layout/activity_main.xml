@@ -36,7 +36,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button_primary"
         android:contentDescription="Botón escanear"
-        android:src="@drawable/img_camara"
+        android:src="@drawable/scan_icon"
         android:scaleType="centerInside" />
 
     <!-- Botón de flash -->

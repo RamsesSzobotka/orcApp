@@ -63,6 +63,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void nameCharged(){
         SessionManager session = new SessionManager(this);
-        txtBienvenida.setText("¡Bienvenido," + session.obtenerNombreUsuario()+"! ");
+        txtBienvenida.setText("¡Bienvenid@," + session.obtenerNombreUsuario()+"! ");
     }
 }

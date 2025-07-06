@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="¡Bienvenido a OrcApp!"
                 android:gravity="center"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="?android:textColorPrimary"
                 android:layout_marginBottom="32dp" />
