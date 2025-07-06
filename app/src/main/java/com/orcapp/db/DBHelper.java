@@ -132,7 +132,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
      Obtiene el historial de textos de un usuario
-     retorna Cursor con los resultados ordenados por fecha descendente
+     retorna un ArrayList con los resultados ordenados por fecha descendente
      */
     public List<TextoEscaneado> obtenerHistorialPorUsuario(int idUsuario) {
         SQLiteDatabase db = this.getReadableDatabase();
