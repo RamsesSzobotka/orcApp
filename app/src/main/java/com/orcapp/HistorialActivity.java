@@ -1,6 +1,9 @@
 package com.orcapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,26 +17,40 @@ public class HistorialActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private HistorialAdapter adapter;
     private List<TextoEscaneado> listaHistorial;
+    private Button btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
 
-        recyclerView = findViewById(R.id.recyclerViewHistorial);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //
-        listaHistorial = cargarHistorialDesdeBD();
-        adapter = new HistorialAdapter(listaHistorial);
-        recyclerView.setAdapter(adapter);
+        setControls();
+        cargarHistorial();
+        volverEvent();
     }
 
+    public void setControls(){
+        btnVolver = findViewById(R.id.btnVolver);
+        recyclerView = findViewById(R.id.recyclerViewHistorial);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
     private List<TextoEscaneado> cargarHistorialDesdeBD() {
         DBHelper dbHelper = new DBHelper(this);
         SessionManager smHelper = new SessionManager(this);
         int idUsuario = smHelper.obtenerIdUsuario();
         List<TextoEscaneado> escaneos = dbHelper.obtenerHistorialPorUsuario(idUsuario);
         return escaneos;
+    }
+
+    public void cargarHistorial() {
+        listaHistorial = cargarHistorialDesdeBD();
+        adapter = new HistorialAdapter(listaHistorial);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void volverEvent(){
+        btnVolver.setOnClickListener(v ->
+                startActivity(new Intent(HistorialActivity.this, WelcomeActivity.class))
+        );
     }
 }

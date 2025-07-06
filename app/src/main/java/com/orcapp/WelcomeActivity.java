@@ -47,10 +47,10 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, HistorialActivity.class);
             startActivity(intent);
         });
-        /*
         btnHistorial.setOnClickListener(v -> {
             Intent intent = new Intent(this, HistorialActivity.class);
-        });*/
+            startActivity(intent);
+        });
         btnCerrarSesion.setOnClickListener(v -> {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -63,6 +63,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void nameCharged(){
         SessionManager session = new SessionManager(this);
-        txtBienvenida.setText("¡Bienvenido, " + session.obtenerNombreUsuario()+"! ");
+        txtBienvenida.setText("¡Bienvenido," + session.obtenerNombreUsuario()+"! ");
     }
 }

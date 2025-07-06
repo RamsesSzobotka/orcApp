@@ -18,5 +18,14 @@
         android:id="@+id/recyclerViewHistorial"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/textViewTitulo"/>
+        android:layout_below="@id/textViewTitulo"
+        android:layout_above="@id/btnVolver"/>
+
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

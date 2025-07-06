@@ -167,7 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            return input; // Fallback inseguro, debería manejarse mejor
+            return input;
         }
     }
 }

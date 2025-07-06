@@ -43,7 +43,6 @@ public class SessionManager {
         editor.clear();
         editor.apply();
     }
-
     // Devuelve el nombre del usuario en sesión o null si no hay
     public String obtenerNombreUsuario() {
         return prefs.getString(KEY_NOMBRE_USUARIO, null);

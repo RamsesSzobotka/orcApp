@@ -35,33 +35,31 @@
             android:textColor="?android:textColorPrimary" />
     </ScrollView>
 
-    <!-- Botón copiar -->
-    <Button
-        android:id="@+id/btnCopiar"
+    <!-- Botones: Copiar y Filtrar -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="📋 Copiar al portapapeles"
+        android:orientation="horizontal"
         android:layout_marginTop="12dp"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:backgroundTint="?android:colorAccent" />
+        android:gravity="center"
+        android:weightSum="2">
 
-    <!-- Botón guardar -->
-    <Button
-        android:id="@+id/btnGuardar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="💾 Guardar en historial"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:backgroundTint="?android:colorAccent" />
+        <Button
+            android:id="@+id/btnCopiar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📋 Copiar"
+            android:backgroundTint="?android:colorAccent"
+            android:layout_marginEnd="8dp" />
 
-    <!-- Botón filtrar -->
-    <Button
-        android:id="@+id/btnFiltrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🔍 Aplicar filtros"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:textColorPrimaryInverse"
-        android:backgroundTint="?android:colorAccent" />
+        <Button
+            android:id="@+id/btnFiltrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🔍 Filtros"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="?android:colorAccent"/>
+    </LinearLayout>
 </LinearLayout>

@@ -18,10 +18,9 @@ import java.util.Locale;
 
 public class ResultadoActivity extends AppCompatActivity {
 
-    TextView txtTextoDetectado;
-    Button btnGuardar, btnFiltrar,btnCopiar;
-
-    String textoRecibido;
+    private TextView txtTextoDetectado;
+    private Button  btnFiltrar,btnCopiar;
+    private String textoRecibido;
     int usuarioId = 1;
 
     @Override
@@ -31,21 +30,23 @@ public class ResultadoActivity extends AppCompatActivity {
 
         setControls();
         setTexto();
+        setEvents();
+        guardarTexto();
+    }
+    private void setControls() {
+        txtTextoDetectado = findViewById(R.id.txtTextoDetectado);
+        btnFiltrar = findViewById(R.id.btnFiltrar);
+        btnCopiar = findViewById(R.id.btnCopiar);
+    }
+
+    public void setEvents(){
         btnCopiar.setOnClickListener(v -> copiarAlPortapapeles());
-        btnGuardar.setOnClickListener(v -> guardarTexto());
         btnFiltrar.setOnClickListener(v -> {
             Intent intent = new Intent(ResultadoActivity.this, FiltrosActivity.class);
             intent.putExtra("textoParaFiltrar", textoRecibido);
             startActivity(intent);
         });
     }
-    private void setControls() {
-        txtTextoDetectado = findViewById(R.id.txtTextoDetectado);
-        btnGuardar = findViewById(R.id.btnGuardar);
-        btnFiltrar = findViewById(R.id.btnFiltrar);
-        btnCopiar = findViewById(R.id.btnCopiar);
-    }
-
     public void setTexto(){
 
         textoRecibido = getIntent().getStringExtra("textoDetectado");
@@ -54,7 +55,6 @@ public class ResultadoActivity extends AppCompatActivity {
             txtTextoDetectado.setText(textoRecibido);
         } else {
             txtTextoDetectado.setText("No se recibió texto");
-            btnGuardar.setEnabled(false);
             btnFiltrar.setEnabled(false);
         }
     }
