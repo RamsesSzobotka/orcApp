@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.orcapp.MainActivity;
 import com.orcapp.R;
+import com.orcapp.WelcomeActivity;
 import com.orcapp.db.DBHelper;
 import com.orcapp.db.SessionManager;
 import com.orcapp.utils.ValidationUtils;
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     // Verifica si ya hay una sesión activa y redirige al usuario si es así
     private void checkActiveSession() {
         if (sessionManager.haySesionActiva()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, WelcomeActivity.class));
             finish();
         }
     }
@@ -68,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         );
     }
 
-    // Lógica para validar y realizar el inicio de sesión
-    private void loginUser() {
+  //Lógica para validar y realizar el inicio de sesión
+    public void loginUser() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             int userId = dbHelper.obtenerIdUsuario(username);
             sessionManager.guardarSesion(userId, username);
             Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, WelcomeActivity.class));
             finish();
         } else {
             Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();

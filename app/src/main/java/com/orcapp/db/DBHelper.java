@@ -6,8 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.orcapp.models.TextoEscaneado;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 // Clase encargada de manejar la base de datos SQLite para usuarios e historial
 public class DBHelper extends SQLiteOpenHelper {
@@ -113,15 +117,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
+
+
     // Obtiene el historial de un usuario ordenado por fecha descendente
-    public Cursor obtenerHistorialPorUsuario(int idUsuario) {
+    public List<TextoEscaneado> obtenerHistorialPorUsuario(int idUsuario) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_HISTORIAL,
+        List<TextoEscaneado> lista = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_HISTORIAL,
                 null,
                 COLUMN_ID_USUARIO + " = ?",
                 new String[]{String.valueOf(idUsuario)},
                 null, null,
                 COLUMN_FECHA + " DESC");
+        int indexTexto = cursor.getColumnIndexOrThrow("texto");
+        int indexFecha = cursor.getColumnIndexOrThrow("fecha");
+        if (cursor.moveToFirst()){
+        if (indexTexto != -1 && indexFecha != -1) {
+            do {
+                String texto = cursor.getString(indexTexto);
+                String fecha = cursor.getString(indexFecha);
+                lista.add(new TextoEscaneado(texto, fecha));
+            } while (cursor.moveToNext());
+
+        }}return lista;
     }
 
     // Verifica si ya existe un usuario con el nombre dado

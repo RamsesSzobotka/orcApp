@@ -7,5 +7,8 @@
         <item name="colorOnPrimary">#000000</item>
         <item name="colorSecondary">#03DAC5</item>
         <item name="android:windowBackground">#121212</item>
+        <!-- Ocultar barra de titulo -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

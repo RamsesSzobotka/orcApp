@@ -1,88 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground"
-    tools:context=".MainActivity">
+    android:background="?android:colorBackground">
 
     <!-- Vista previa de la cámara -->
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/botonera"
-        android:background="#000000"
         android:contentDescription="Vista previa de la cámara" />
 
-    <!-- Botonera inferior -->
-    <LinearLayout
-        android:id="@+id/botonera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <!-- Botón para seleccionar imagen (galería) -->
+    <ImageButton
+        android:id="@+id/btnSeleccionarImagen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:background="?android:colorBackground">
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/rounded_button_primary"
+        android:contentDescription="Seleccionar imagen"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_galeria" />
 
-        <!-- Fila 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+    <!-- Botón escanear circular central -->
+    <ImageButton
+        android:id="@+id/btnEscanear"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button_primary"
+        android:contentDescription="Botón escanear"
+        android:src="@drawable/img_camara"
+        android:scaleType="centerInside" />
 
-            <Button
-                android:id="@+id/btnEscanear"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="📷 Escanear"
-                android:textSize="16sp"
-                android:backgroundTint="?android:colorAccent"
-                android:textColor="?android:textColorPrimaryInverse"
-                android:layout_marginEnd="4dp" />
-
-            <Button
-                android:id="@+id/btnSeleccionarImagen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🖼️ Imagen"
-                android:textSize="16sp"
-                android:backgroundTint="?android:colorAccent"
-                android:textColor="?android:textColorPrimary"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-
-        <!-- Fila 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnHistorial"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="📜 Historial"
-                android:textSize="16sp"
-                android:backgroundTint="?android:colorActivatedHighlight"
-                android:textColor="?android:textColorPrimary"
-                android:layout_marginEnd="4dp" />
-
-            <Button
-                android:id="@+id/btnCerrarSesion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🔒 Cerrar"
-                android:textSize="16sp"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:textColor="#FFFFFF"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-    </LinearLayout>
+    <!-- Botón de flash -->
+    <ImageButton
+            android:id="@+id/btnFlash"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_button_primary"
+        android:contentDescription="Flash"
+        android:src="@drawable/ic_flash_off"
+        android:scaleType="centerInside" />
 </RelativeLayout>
