@@ -51,8 +51,8 @@ public class HistorialActivity extends AppCompatActivity {
             if (position != RecyclerView.NO_POSITION) {
                 TextoEscaneado item = listaHistorial.get(position);
 
-                Intent intent = new Intent(HistorialActivity.this, FiltrosActivity.class);
-                intent.putExtra("textoParaFiltrar", item.getTexto());
+                Intent intent = new Intent(HistorialActivity.this,ResultadoActivity.class);
+                intent.putExtra("textoDetectado", item.getTexto());
                 startActivity(intent);
             }
         });
