@@ -48,7 +48,7 @@ public class FiltroUtils {
     //para cedulas panameñas
     public static List<String> extraerCedulas(String texto) {
         List<String> resultados = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\b\\d+-\\d+-\\d+\\b");
+        Pattern pattern = Pattern.compile("\\b\\d{1,2}-\\d{3,4}-\\d{3,6}\\b");
         Matcher matcher = pattern.matcher(texto);
 
         while (matcher.find()) {
