@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Análisis desde la cámara (solo si escaneando = true)
+    @OptIn(markerClass = ExperimentalGetImage.class)
     public void analyzeImage(@NonNull ImageProxy imageProxy) {
         if (!escaneando) {
             imageProxy.close();
