@@ -25,11 +25,15 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
-import com.orcapp.login.LoginActivity;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.provider.MediaStore;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -128,9 +132,12 @@ public class MainActivity extends AppCompatActivity {
             imageProxy.close();
             return;
         }
-
+        //EL ML kit escanea de izquierda a derecha y note que si giro la
+        //imagen 90° a la izquierda(osea 270° en sentido normal) la lectura
+        //es mas precisa gracias a que lee filas de texto rectas dando un mejor resultado
         @SuppressWarnings("UnsafeOptInUsageError")
-        InputImage image = InputImage.fromMediaImage(imageProxy.getImage(), imageProxy.getImageInfo().getRotationDegrees());
+        int rotacion = (imageProxy.getImageInfo().getRotationDegrees() + 90) % 360;
+        InputImage image = InputImage.fromMediaImage(imageProxy.getImage(), rotacion);
 
         TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
                 .process(image)
@@ -164,14 +171,32 @@ public class MainActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Uri imagenUri = result.getData().getData();
                     try {
-                        InputImage image = InputImage.fromFilePath(this, imagenUri);
+                        // Obtener bitmap de la imagen
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imagenUri);
+
+                        //Rotar 90° a la izquierda (270° en sentido horario)
+                        //EL ML kit escanea de izquierda a derecha y note que si giro la
+                        //imagen 90° a la izquierda(osea 270° en sentido normal) la lectura
+                        // es mas precisa gracias a que lee filas de texto rectas dando un mejor resultado
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(270);
+                        Bitmap rotatedBitmap = Bitmap.createBitmap(
+                                bitmap, 0, 0,
+                                bitmap.getWidth(), bitmap.getHeight(),
+                                matrix, true
+                        );
+
+                        // Convertir a InputImage con rotación ya aplicada
+                        InputImage image = InputImage.fromBitmap(rotatedBitmap, 0);
                         procesarImagenOCR(image);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Error al leer la imagen", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
 
     // Abrir archivos para buscar imagen
     public void seleccionarImagen() {
